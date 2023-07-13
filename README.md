@@ -38,8 +38,8 @@ web-сервер **Bottle** и СУБД **SQLite3** вместо **Django** и *
 - Валидация данных не проводится.
 
 - База данных **SQLite3** содержит две таблицы. В таблице **`Users`** хранятся
-пользовательские данные (name, login, passwd, token, expired). В таблице
-**`Callbase`** (name, number)
+пользовательские данные (uid, name, login, password, token, expired, comment). В
+таблице **`Callbase`** (name, number)
 
 [:arrow_up: Содержание](#содержание)
 
