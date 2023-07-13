@@ -1,0 +1,4 @@
+bottle==0.12.25
+greenlet==2.0.2
+SQLAlchemy==2.0.18
+typing_extensions==4.7.1
