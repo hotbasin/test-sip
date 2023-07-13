@@ -3,3 +3,4 @@ VENV*/
 venv*/
 *.ipynb
 .ipynb_checkpoints/
+test.py
