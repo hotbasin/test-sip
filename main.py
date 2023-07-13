@@ -56,7 +56,8 @@ def server_root() -> str:
 
 
 @post('/srv1/auth/login')
-def login_post(credentials_: dict) -> dict:
+# def login_post(credentials_: dict) -> dict:
+def login_post(login_: str, password_: str) -> object:
     ''' Ресурс аутентификации на сервере
     Arguments:
         credentials_ [dict] -- Словарь/json с ключами 'login',
@@ -67,18 +68,13 @@ def login_post(credentials_: dict) -> dict:
     with Session(ENGINE) as s_:
         try:
             user_ = s_.query(User).filter(User.login == login_).first()
-            # user_ = s_.query(User).filter(User.login == login_)
-            # print(f'!{user_.login}!')
-            # print(f'!{user_.password}!')
             if user_.password == password_:
-                print("EQUAL")
                 token_ = str(uuid.uuid4())
                 output_ = dict(status='success',
                                token=token_
                               )
                 user_.token = token_
                 user_.expired = time() + 600.0
-                print(user_.token)
                 s_.add(user_)
                 s_.commit()
             else:
