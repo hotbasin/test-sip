@@ -5,7 +5,7 @@ CREATE TABLE 'Users'    (
                         'name' VARCHAR(1024) DEFAULT NULL,
                         'login' VARCHAR(1024) DEFAULT NULL,
                         'password' VARCHAR(1024) DEFAULT NULL,
-                        'acc-token' VARCHAR(1024) DEFAULT NULL,
+                        'acc_token' VARCHAR(1024) DEFAULT NULL,
                         'expired' REAL DEFAULT NULL,
                         'comment' TEXT(1024) DEFAULT NULL
                         );

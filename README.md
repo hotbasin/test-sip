@@ -46,7 +46,7 @@ web-сервер **Bottle** и СУБД **SQLite3** вместо **Django** и *
     name        VARCHAR(1024)   Имя
     login       VARCHAR(1024)   Логин
     password    VARCHAR(1024)   Пароль
-    token       VARCHAR(1024)   Access-токен с ограниченным временем действия
+    acc_token   VARCHAR(1024)   Access-токен с ограниченным временем действия
     expired     FLOAT           Дата окончания лействия access-токена в UNIX-формате
     comment     TEXT(1024)      Дополнительная информация
 

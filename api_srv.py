@@ -27,7 +27,7 @@ class User(Base):
     name = sa.Column(sa.String(1024))
     login = sa.Column(sa.String(1024))
     password = sa.Column(sa.String(1024))
-    token = sa.Column(sa.String(1024))
+    acc_token = sa.Column(sa.String(1024))
     expired = sa.Column(sa.Float)
     comment = sa.Column(sa.Text(1024))
 
@@ -37,6 +37,7 @@ class Abon(Base):
     cid = sa.Column(sa.String(36), primary_key=True)
     name = sa.Column(sa.String(1024))
     number = sa.Column(sa.String(12))
+    comment = sa.Column(sa.Text(1024))
 
 
 def login_post(credentials: dict) -> dict:
@@ -46,8 +47,8 @@ def login_post(credentials: dict) -> dict:
     Arguments:
         credentials [dict] -- Словарь/json с ключами 'login', 'password'
     Returns:
-        [dict] -- Словарь/json с ключами status/text/token, или
-            с ключами status/text в случае ошибки
+        [dict] -- Словарь/json с ключами status/text/acc_token/expired,
+            или с ключами status/text в случае ошибки
     '''
     output_ = {'status': 'fail',
                'text': 'Unknown request'
@@ -59,16 +60,17 @@ def login_post(credentials: dict) -> dict:
             user_ = s_.query(User).filter(User.login == login_).first()
             if user_:
                 if user_.password == password_:
-                    token_ = str(uuid.uuid4())
+                    acc_token_ = str(uuid.uuid4())
                     # Обновление пользователя в базе
-                    user_.token = token_
+                    user_.acc_token = acc_token_
                     user_.expired = time() + LOGIN_INTERVAL
                     s_.add(user_)
                     s_.commit()
                     # Возврат токена
                     output_['status'] = 'success'
                     output_['text'] = f'User {login_}: logged in'
-                    output_['token'] = token_
+                    output_['acc_token'] = acc_token_
+                    output_['expired'] = user_.expired
                 else:
                     output_['status'] = 'fail'
                     output_['text'] = f'User {login_}: login failed'
