@@ -17,6 +17,8 @@ Base = declarative_base()
 ENGINE = sa.create_engine(DB_PATH)
 # Время действия логина на сервер в секундах
 LOGIN_INTERVAL = 600.0
+# Ключ для создания JSON Web Token
+JWT_KEY = 'secretstring'
 
 
 ''' =====----- Classes -----===== '''
@@ -31,7 +33,6 @@ class User(Base):
     expired = sa.Column(sa.Float)
     comment = sa.Column(sa.Text(1024))
 
-
 class Abon(Base):
     __tablename__ = 'Callbase'
     cid = sa.Column(sa.String(36), primary_key=True)
@@ -39,6 +40,8 @@ class Abon(Base):
     number = sa.Column(sa.String(12))
     comment = sa.Column(sa.Text(1024))
 
+
+''' =====----- API Methods -----===== '''
 
 def login_post(credentials: dict) -> dict:
     ''' Метод для ресурса аутентификации на сервере. В случае логина
@@ -80,5 +83,14 @@ def login_post(credentials: dict) -> dict:
     except:
         pass
     return json.dumps(output_, ensure_ascii=False)
+
+def abon_get(req_data):
+    ''' Выдача всей базы абонентов
+    Arguments:
+        req_data --
+    Returns:
+        None
+    '''
+    pass
 
 #####=====----- THE END -----=====#########################################

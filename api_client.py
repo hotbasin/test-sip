@@ -6,7 +6,13 @@ from time import time, ctime
 import requests
 import jwt
 
+
+''' =====----- Global variables -----===== '''
+
+# Временный файл для хранения access-токена
 TOKEN_FILE = 'acc-token.json'
+# Ключ для создания JSON Web Token
+JWT_KEY = 'secretstring'
 
 def test_login(credentials: dict) -> str:
     ''' Тест аутентификации на ресурсе сервера.
@@ -20,8 +26,8 @@ def test_login(credentials: dict) -> str:
             text/acc_token/expired в случае успеха
             или со значением 'text' при ошибке
     '''
-    r = requests.post('http://localhost:8080/srv1/auth/login', json=credentials)
-    res_dict = r.json()
+    r_ = requests.post('http://localhost:8080/srv1/auth/login', json=credentials)
+    res_dict = r_.json()
     if res_dict['status'] == 'success':
         text_ = res_dict['text']
         acc_token_ = res_dict['acc_token']
@@ -35,10 +41,18 @@ def test_login(credentials: dict) -> str:
     else:
         return f'FAIL: {res_dict["text"]}'
 
+def test_abon():
+    with open(TOKEN_FILE, 'r', encoding='utf-8') as j_:
+        token_dict = json.load(j_)
+    acc_token = token_dict['acc_token']
+    req_jwt = ''
+    # r = requests.get('http://localhost:8080/srv1/auth/login', params={'data': req_jwt})
+
 ''' =====----- MAIN -----===== '''
 if __name__ == '__main__':
     # Раскомментировать для проверки логина
-    creds = {'login': 'user1', 'password': 'qwerty1'}
-    print(test_login(creds))
+    # creds = {'login': 'user1', 'password': 'qwerty1'}
+    # print(test_login(creds))
+    test_abon()
 
 #####=====----- THE END -----=====#########################################
