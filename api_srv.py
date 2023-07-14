@@ -50,7 +50,7 @@ def login_post(credentials: dict) -> dict:
             с ключами status/text в случае ошибки
     '''
     output_ = {'status': 'fail',
-               'text': 'Unknown error'
+               'text': 'Unknown request'
               }
     try:
         with Session(ENGINE) as s_:

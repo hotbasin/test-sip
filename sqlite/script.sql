@@ -5,7 +5,7 @@ CREATE TABLE 'Users'    (
                         'name' VARCHAR(1024) DEFAULT NULL,
                         'login' VARCHAR(1024) DEFAULT NULL,
                         'password' VARCHAR(1024) DEFAULT NULL,
-                        'token' VARCHAR(1024) DEFAULT NULL,
+                        'acc-token' VARCHAR(1024) DEFAULT NULL,
                         'expired' REAL DEFAULT NULL,
                         'comment' TEXT(1024) DEFAULT NULL
                         );
@@ -15,9 +15,10 @@ INSERT INTO 'Users' VALUES('00000000-3333-3333-3333-000000000000','Jowie','user3
 CREATE TABLE 'Callbase' (
                         'cid' VARCHAR(36) NOT NULL PRIMARY KEY,
                         'name' VARCHAR(1024) DEFAULT NULL,
-                        'number' VARCHAR(12) DEFAULT NULL
+                        'number' VARCHAR(12) DEFAULT NULL,
+                        'comment' TEXT(1024) DEFAULT NULL
                         );
-INSERT INTO 'Callbase' VALUES('10000001-1111-1111-1111-100000000001','abon1','+70951231111');
-INSERT INTO 'Callbase' VALUES('20000002-2222-2222-2222-200000000002','abon2','+70951232222');
-INSERT INTO 'Callbase' VALUES('30000003-3333-3333-3333-300000000003','abon3','+70951233333');
+INSERT INTO 'Callbase' VALUES('10000001-1111-1111-1111-100000000001','abon1','+70951231111',NULL);
+INSERT INTO 'Callbase' VALUES('20000002-2222-2222-2222-200000000002','abon2','+70951232222',NULL);
+INSERT INTO 'Callbase' VALUES('30000003-3333-3333-3333-300000000003','abon3','+70951233333',NULL);
 COMMIT;

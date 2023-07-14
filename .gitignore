@@ -1,6 +1,7 @@
 __pycache__/
 VENV*/
 venv*/
+jwt/
 *.ipynb
 .ipynb_checkpoints/
 test.py
