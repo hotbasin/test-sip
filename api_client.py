@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import json
-from time import time, ctime
+from time import ctime
 
 import requests
 import jwt
@@ -13,6 +13,9 @@ import jwt
 TOKEN_FILE = 'acc-token.json'
 # Ключ для создания JSON Web Token
 JWT_KEY = 'secretstring'
+
+
+''' =====----- Functions -----===== '''
 
 def test_login(credentials: dict) -> str:
     ''' Тест аутентификации на ресурсе сервера.
@@ -42,11 +45,14 @@ def test_login(credentials: dict) -> str:
         return f'FAIL: {res_dict["text"]}'
 
 def test_abon():
+    ''' Тест выдачи всей базы абонентов
+    '''
     with open(TOKEN_FILE, 'r', encoding='utf-8') as j_:
         token_dict = json.load(j_)
     acc_token = token_dict['acc_token']
     req_jwt = ''
     # r = requests.get('http://localhost:8080/srv1/auth/login', params={'data': req_jwt})
+
 
 ''' =====----- MAIN -----===== '''
 if __name__ == '__main__':

@@ -85,7 +85,7 @@ def login_post(credentials: dict) -> dict:
     return json.dumps(output_, ensure_ascii=False)
 
 def abon_get(req_data):
-    ''' Выдача всей базы абонентов
+    ''' Метод для выдачи всей базы абонентов
     Arguments:
         req_data --
     Returns:
