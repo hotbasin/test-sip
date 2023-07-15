@@ -23,18 +23,27 @@ def server_root() -> str:
     with open(ROOT_INDEX_FILE, 'r', encoding='utf-8') as f_:
         return f_.read()
 
+
 @post('/srv1/auth/login')
-def login_post():
+def login_post() -> dict:
     ''' Ресурс аутентификации на сервере
     '''
     return api_.login_post(request.json)
 
+
 @get('/srv1/abon/all')
-def abon_get():
+def all_abon_get() -> dict:
     ''' Ресурс выдачи всей базы абонентов
     '''
     req_data_ = request.query.req_data
-    return api_.abon_get(req_data_)
+    return api_.all_abon_get(req_data_)
+
+
+@post('/srv1/call/sample')
+def call_sample():
+    ''' Ресурс тестового звонка
+    '''
+    return api_.call_sample()
 
 
 ''' =====----- MAIN -----===== '''

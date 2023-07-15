@@ -84,12 +84,25 @@ def login_post(credentials: dict) -> dict:
         pass
     return json.dumps(output_, ensure_ascii=False)
 
-def abon_get(req_data):
+
+def all_abon_get(req_data):
     ''' Метод для выдачи всей базы абонентов
     Arguments:
         req_data --
     Returns:
         None
+    '''
+    with Session(ENGINE) as s_:
+        abons_ = s_.query(Abon).all()
+        for abon_ in abons_:
+            print(abon_.name + '\t' +
+                  str(abon_.number) + '\t' +
+                  str(abon_.comment)
+                 )
+
+
+def call_sample():
+    ''' Метод для тестового звонка
     '''
     pass
 
