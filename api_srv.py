@@ -44,12 +44,12 @@ class Abon(Base):
 ''' =====----- Decorators -----===== '''
 
 def auth_decor(fn_to_be_decor):
-    ''' Декоратор для функций, которые в именованном аргументе req_data
+    ''' Декоратор для функций, которые в именованном аргументе 'req_data'
     получают данные в виде JSON Web Token.
     Распаковывает JWT, проверяет по базе наличие действительного
     access-tokena, по результату передаёт декорируемой функции
-    именованный аргумент auth_ok [bool] и полезную нагрузку в
-    именованном аргументе payload
+    именованный аргумент 'auth_ok' [bool] и полезную нагрузку в
+    именованном аргументе 'payload'.
     '''
     def fn_wrapper(**kwargs):
         ok_ = False
@@ -66,11 +66,15 @@ def auth_decor(fn_to_be_decor):
                     user_ = s_.query(User).filter(User.acc_token == token_).first()
                 try:
                     if user_.expired > time():
+                        # Время действия токена не закончилось
                         ok_ = True
                 except:
+                    # Токен закончился или его вообще нет
                     ok_ = False
             except:
+                # Что-то не так с БД
                 ok_ = False
+        # Декорируемая функция
         result_ = fn_to_be_decor(auth_ok=ok_, payload=payload_, **kwargs)
         return result_
     return fn_wrapper
@@ -79,13 +83,13 @@ def auth_decor(fn_to_be_decor):
 
 def login_post(credentials: dict) -> dict:
     ''' Метод для ресурса аутентификации на сервере. В случае логина
-    польщователя записывает для него в таблицу Users выданный токен
+    пользователя записывает для него в таблицу 'Users' выданный токен
     (token) и дату окончания его действия (expired).
     Arguments:
         credentials [dict] -- Словарь/json с ключами 'login', 'password'
     Returns:
-        [dict] -- Словарь/json с ключами status/text/acc_token/expired
-            или с ключами status/text в случае ошибки
+        [dict] -- Словарь/json с ключами 'status', 'text', 'acc_token',
+            'expired' или с ключами 'status', 'text' в случае ошибки.
     '''
     output_dict_ = {'status': 'fail',
                     'text': 'Unknown request'
@@ -148,8 +152,10 @@ def all_abon_get(req_data=None, auth_ok=False, payload=None, **kwargs):
             output_dict_['text'] = 'Authorized request'
             output_dict_['all_abon'] = abon_dict_
         except:
+            # Ошибки работы с БД
             output_dict_['text'] = 'DS access error'
     else:
+        # Токен закончился, надо обновить (снова залогиниться)
         output_dict_['text'] = 'Login required'
 
     return json.dumps(output_dict_, ensure_ascii=False, indent=2)

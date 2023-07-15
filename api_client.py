@@ -19,8 +19,8 @@ JWT_KEY = 'secretstring'
 
 def test_login(credentials: dict) -> str:
     ''' Тест аутентификации на ресурсе сервера.
-    При удачном логине записывает полученный access-токен и его время
-    окончания действия во временный файл, указанный в глобальной
+    При удачном POST-запросе записывает полученный access-токен и его
+    время окончания действия во временный файл, указанный в глобальной
     переменной TOKEN_FILE для использования в других тестах.
     Arguments:
         credentials [dict] -- Логин и пароль
@@ -45,12 +45,19 @@ def test_login(credentials: dict) -> str:
     else:
         return f'FAIL: {res_dict["text"]}'
 
-def test_abon():
-    ''' Тест выдачи всей базы абонентов
+
+def test_abon() -> str:
+    ''' Тест выдачи всей базы абонентов.
+    Отправляет в GET-запросе на сервер закодированный JSON Web Token.
+    В 'header' добавляет полученный при логине access-токен.
+    В 'payload' в данном случае можно включить пустой словарь.
+    Returns:
+        [str] -- Неотформатированный многострочник с полученным от
+            сервера json-ответом
     '''
     with open(TOKEN_FILE, 'r', encoding='utf-8') as j_:
         token_dict_ = json.load(j_)
-    payload_ = {'key': 'item'}
+    payload_ = {}
     acc_token_ = token_dict_['acc_token']
     req_jwt_ = jwt.encode(payload_, JWT_KEY, algorithm='HS256',
                           headers={'acc_token': acc_token_}
