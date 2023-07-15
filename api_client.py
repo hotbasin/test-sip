@@ -29,7 +29,8 @@ def test_login(credentials: dict) -> str:
             text/acc_token/expired в случае успеха
             или со значением 'text' при ошибке
     '''
-    r_ = requests.post('http://localhost:8080/srv1/auth/login', json=credentials)
+    r_ = requests.post('http://localhost:8080/srv1/auth/login',
+                       json=credentials)
     res_dict = r_.json()
     if res_dict['status'] == 'success':
         text_ = res_dict['text']
@@ -48,21 +49,25 @@ def test_abon():
     ''' Тест выдачи всей базы абонентов
     '''
     with open(TOKEN_FILE, 'r', encoding='utf-8') as j_:
-        token_dict = json.load(j_)
-    acc_token = token_dict['acc_token']
-    req_jwt = ''
-    r = requests.get('http://localhost:8080/srv1/abon/all', params={'req_data': acc_token})
-    # r = requests.request('GET', 'http://localhost:8080', params={'req_data': acc_token})
-    print(r.text)
+        token_dict_ = json.load(j_)
+    payload_ = {'key': 'item'}
+    acc_token_ = token_dict_['acc_token']
+    req_jwt_ = jwt.encode(payload_, JWT_KEY, algorithm='HS256',
+                          headers={'acc_token': acc_token_}
+                         )
+    r = requests.get('http://localhost:8080/srv1/abon/all',
+                     params={'req_data': req_jwt_}
+                    )
+    return r.text
 
 
 ''' =====----- MAIN -----===== '''
 if __name__ == '__main__':
-    # Раскомментировать для проверки логина (POST)
-    # creds = {'login': 'user1', 'password': 'qwerty1'}
-    # print(test_login(creds))
+    ''' Раскомментировать для проверки логина (POST) '''
+    creds = {'login': 'user1', 'password': 'qwerty1'}
+    print(test_login(creds))
     
-    # Раскомментировать для проверки выдачи абонентской базы (GET)
-    test_abon()
+    ''' Раскомментировать для проверки выдачи абонентской базы (GET) '''
+    # print(test_abon())
 
 #####=====----- THE END -----=====#########################################

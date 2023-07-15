@@ -4,9 +4,9 @@ import json
 import uuid
 from time import time
 
-# from bottle import HTTPError, get, post, request, run
 import sqlalchemy as sa
 from sqlalchemy.orm import declarative_base, Session
+import jwt
 
 
 ''' =====----- Global variables -----===== '''
@@ -51,12 +51,27 @@ def auth_decor(fn_to_be_decor):
     именованный аргумент auth_ok [bool] и полезную нагрузку в
     именованном аргументе payload
     '''
-    def fn_wrapper(*args, **kwargs):
+    def fn_wrapper(**kwargs):
+        ok_ = False
+        payload_ = dict()
         if 'req_data' in kwargs.keys():
-            print(kwargs.keys())
-        ok_ = True
-        pl_ = dict()
-        result_ = fn_to_be_decor(*args, auth_ok=ok_, payload=pl_, **kwargs)
+            decoded_jwt_ = jwt.api_jwt.decode_complete(kwargs['req_data'],
+                                                       key=JWT_KEY,
+                                                       algorithms='HS256')
+            header_ = decoded_jwt_['header']
+            token_ = header_['acc_token']
+            payload_ = decoded_jwt_['payload']
+            try:
+                with Session(ENGINE) as s_:
+                    user_ = s_.query(User).filter(User.acc_token == token_).first()
+                try:
+                    if user_.expired > time():
+                        ok_ = True
+                except:
+                    ok_ = False
+            except:
+                ok_ = False
+        result_ = fn_to_be_decor(auth_ok=ok_, payload=payload_, **kwargs)
         return result_
     return fn_wrapper
 

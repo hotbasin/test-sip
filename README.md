@@ -68,6 +68,9 @@ web-сервер **Bottle** и СУБД **SQLite3** вместо **Django** и *
 
 ## Результат ##
 
+- JWT_KEY должна быть одинаковой в api_srv.py и в api_client.py для упаковки и
+распаковки JSON Web Token.
+
 [:arrow_up: Содержание](#содержание)
 
 ----
