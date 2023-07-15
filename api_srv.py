@@ -50,12 +50,12 @@ def login_post(credentials: dict) -> dict:
     Arguments:
         credentials [dict] -- Словарь/json с ключами 'login', 'password'
     Returns:
-        [dict] -- Словарь/json с ключами status/text/acc_token/expired,
+        [dict] -- Словарь/json с ключами status/text/acc_token/expired
             или с ключами status/text в случае ошибки
     '''
-    output_ = {'status': 'fail',
-               'text': 'Unknown request'
-              }
+    output_dict_ = {'status': 'fail',
+                    'text': 'Unknown request'
+                   }
     try:
         with Session(ENGINE) as s_:
             login_ = credentials['login']
@@ -70,19 +70,17 @@ def login_post(credentials: dict) -> dict:
                     s_.add(user_)
                     s_.commit()
                     # Возврат токена
-                    output_['status'] = 'success'
-                    output_['text'] = f'User {login_}: logged in'
-                    output_['acc_token'] = acc_token_
-                    output_['expired'] = user_.expired
+                    output_dict_['status'] = 'success'
+                    output_dict_['text'] = f'User {login_}: logged in'
+                    output_dict_['acc_token'] = acc_token_
+                    output_dict_['expired'] = user_.expired
                 else:
-                    output_['status'] = 'fail'
-                    output_['text'] = f'User {login_}: login failed'
+                    output_dict_['text'] = f'User {login_}: login failed'
             else:
-                output_['status'] = 'fail'
-                output_['text'] = f'User {login_}: not exists'
+                output_dict_['text'] = f'User {login_}: not exists'
     except:
         pass
-    return json.dumps(output_, ensure_ascii=False)
+    return json.dumps(output_dict_, ensure_ascii=False, indent=2)
 
 
 def all_abon_get(req_data):
@@ -90,18 +88,33 @@ def all_abon_get(req_data):
     Arguments:
         req_data --
     Returns:
-        None
+        [dict] -- Словарь/json с ключами status/text/all_abon
+            или с ключами status/text в случае ошибки
     '''
+    output_dict_ = {'status': 'fail',
+                    'text': 'Unknown request'
+                   }
+    # try:
     with Session(ENGINE) as s_:
-        abons_ = s_.query(Abon).all()
-        for abon_ in abons_:
-            print(abon_.name + '\t' +
-                  str(abon_.number) + '\t' +
-                  str(abon_.comment)
-                 )
+            abonents_ = s_.query(Abon).all()
+    n_ = 0
+    abon_dict_ = {}
+    for abon_ in abonents_:
+            n_ += 1
+            abon_dict_[n_] = dict(name=abon_.name,
+                                  number=abon_.number,
+                                  comment=abon_.comment
+                                 )
+    output_dict_['status'] = 'success'
+    output_dict_['text'] = 'Authorized request'
+    output_dict_['all_abon'] = abon_dict_
+    """except:
+        output_dict_['text'] = 'DS access error'"""
+
+    return json.dumps(output_dict_, ensure_ascii=False, indent=2)
 
 
-def call_sample():
+def call_sample_post():
     ''' Метод для тестового звонка
     '''
     pass

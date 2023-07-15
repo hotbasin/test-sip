@@ -51,7 +51,9 @@ def test_abon():
         token_dict = json.load(j_)
     acc_token = token_dict['acc_token']
     req_jwt = ''
-    # r = requests.get('http://localhost:8080/srv1/auth/login', params={'data': req_jwt})
+    r = requests.get('http://localhost:8080/srv1/abon/all', params={'req_data': acc_token})
+    # r = requests.request('GET', 'http://localhost:8080', params={'req_data': acc_token})
+    print(r.text)
 
 
 ''' =====----- MAIN -----===== '''
