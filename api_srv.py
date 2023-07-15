@@ -41,6 +41,25 @@ class Abon(Base):
     comment = sa.Column(sa.Text(1024))
 
 
+''' =====----- Decorators -----===== '''
+
+def auth_decor(fn_to_be_decor):
+    ''' Декоратор для функций, которые в именованном аргументе req_data
+    получают данные в виде JSON Web Token.
+    Распаковывает JWT, проверяет по базе наличие действительного
+    access-tokena, по результату передаёт декорируемой функции
+    именованный аргумент auth_ok [bool] и полезную нагрузку в
+    именованном аргументе payload
+    '''
+    def fn_wrapper(*args, **kwargs):
+        if 'req_data' in kwargs.keys():
+            print(kwargs.keys())
+        ok_ = True
+        pl_ = dict()
+        result_ = fn_to_be_decor(*args, auth_ok=ok_, payload=pl_, **kwargs)
+        return result_
+    return fn_wrapper
+
 ''' =====----- API Methods -----===== '''
 
 def login_post(credentials: dict) -> dict:
@@ -83,10 +102,14 @@ def login_post(credentials: dict) -> dict:
     return json.dumps(output_dict_, ensure_ascii=False, indent=2)
 
 
-def all_abon_get(req_data):
+@auth_decor
+def all_abon_get(req_data=None, auth_ok=False, payload=None, **kwargs):
     ''' Метод для выдачи всей базы абонентов
-    Arguments:
-        req_data --
+    Keyword Arguments:
+        req_data [str] -- Параметр req_data в GET-запросе
+        auth_ok [bool] -- Запрос аутентифицирован
+        payload [dict] -- Распакованная из JWT полезная нагрузка
+            (словарь/json)
     Returns:
         [dict] -- Словарь/json с ключами status/text/all_abon
             или с ключами status/text в случае ошибки
@@ -94,22 +117,25 @@ def all_abon_get(req_data):
     output_dict_ = {'status': 'fail',
                     'text': 'Unknown request'
                    }
-    # try:
-    with Session(ENGINE) as s_:
-            abonents_ = s_.query(Abon).all()
-    n_ = 0
-    abon_dict_ = {}
-    for abon_ in abonents_:
-            n_ += 1
-            abon_dict_[n_] = dict(name=abon_.name,
-                                  number=abon_.number,
-                                  comment=abon_.comment
-                                 )
-    output_dict_['status'] = 'success'
-    output_dict_['text'] = 'Authorized request'
-    output_dict_['all_abon'] = abon_dict_
-    """except:
-        output_dict_['text'] = 'DS access error'"""
+    if auth_ok:
+        try:
+            with Session(ENGINE) as s_:
+                abonents_ = s_.query(Abon).all()
+            n_ = 0
+            abon_dict_ = {}
+            for abon_ in abonents_:
+                n_ += 1
+                abon_dict_[n_] = dict(name=abon_.name,
+                                      number=abon_.number,
+                                      comment=abon_.comment
+                                     )
+            output_dict_['status'] = 'success'
+            output_dict_['text'] = 'Authorized request'
+            output_dict_['all_abon'] = abon_dict_
+        except:
+            output_dict_['text'] = 'DS access error'
+    else:
+        output_dict_['text'] = 'Login required'
 
     return json.dumps(output_dict_, ensure_ascii=False, indent=2)
 

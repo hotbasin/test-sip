@@ -35,8 +35,8 @@ def login_post() -> dict:
 def all_abon_get() -> dict:
     ''' Ресурс выдачи всей базы абонентов
     '''
-    req_data_ = request.query.req_data
-    return api_.all_abon_get(req_data_)
+    # req_data_ = request.query.req_data
+    return api_.all_abon_get(req_data=request.query.req_data)
 
 
 @post('/srv1/call/sample')
