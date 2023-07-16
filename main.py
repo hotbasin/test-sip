@@ -43,7 +43,7 @@ def all_abon_get() -> dict:
 def call_sample_post():
     ''' Ресурс тестового звонка
     '''
-    return api_.call_sample()
+    return api_.call_sample_post(req_data=None)
 
 
 ''' =====----- MAIN -----===== '''

@@ -161,7 +161,8 @@ def all_abon_get(req_data=None, auth_ok=False, payload=None, **kwargs):
     return json.dumps(output_dict_, ensure_ascii=False, indent=2)
 
 
-def call_sample_post():
+@auth_decor
+def call_sample_post(req_data=None, auth_ok=False, payload=None, **kwargs):
     ''' Метод для тестового звонка
     '''
     pass
