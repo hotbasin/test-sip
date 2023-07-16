@@ -19,9 +19,11 @@ JWT_KEY = 'secretstring'
 
 def test_login(credentials: dict) -> str:
     ''' Тест аутентификации на ресурсе сервера.
-    При удачном POST-запросе записывает полученный access-токен и его
-    время окончания действия во временный файл, указанный в глобальной
-    переменной TOKEN_FILE для использования в других тестах.
+    Делает POST-запрос на сервер, login и password вкладывает в json.
+    При удачном ответе в json {status: "success"} записывает полученный
+    access-токен и его время окончания действия (в читаемом формате) во
+    временный файл, указанный в глобальной переменной TOKEN_FILE для
+    использования в других тестах.
     Arguments:
         credentials [dict] -- Логин и пароль
     Returns:
@@ -37,7 +39,7 @@ def test_login(credentials: dict) -> str:
         acc_token_ = res_dict['acc_token']
         expired_ = res_dict['expired']
         token_dict = {'acc_token': acc_token_,
-                      'expired': expired_
+                      'expired': ctime(expired_)
                      }
         with open(TOKEN_FILE, 'w', encoding='utf-8') as j_:
             json.dump(token_dict, j_, ensure_ascii=False, indent=4)
