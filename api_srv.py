@@ -79,6 +79,7 @@ def auth_decor(fn_to_be_decor):
         return result_
     return fn_wrapper
 
+
 ''' =====----- API Methods -----===== '''
 
 def login_post(credentials: dict) -> dict:
@@ -122,10 +123,50 @@ def login_post(credentials: dict) -> dict:
 
 
 @auth_decor
-def all_abon_get(req_data=None, auth_ok=False, payload=None, **kwargs):
+def adduser_post(auth_ok=False, payload=None, **kwargs) -> dict:
+    ''' Метод для добавления нового пользователя в базу
+    Arguments:
+        auth_ok [bool] -- Запрос аутентифицирован
+        payload [dict] -- Распакованная из JWT полезная нагрузка
+            (словарь/json)
+    Returns:
+        [dict] -- Словарь/json с ключами status/...
+    '''
+    output_dict_ = {'status': 'fail',
+                    'text': 'Unknown request'
+                   }
+    if auth_ok:
+        new_user = User(uid=str(uuid.uuid4()),
+                        name=payload['name'],
+                        login=payload['login'],
+                        password=payload['password'],
+                        acc_token=None,
+                        expired=None,
+                        comment=payload['comment']
+                       )
+        try:
+            with Session(ENGINE) as s_:
+                if s_.query(User).filter(User.login == new_user.login).first():
+                    output_dict_['text'] = 'User exists!'
+                else:
+                    s_.add(new_user)
+                    s_.commit()
+                    output_dict_['status'] = 'success'
+                    output_dict_['text'] = f'User {new_user.login} added'
+        except:
+            # Ошибки работы с БД
+            output_dict_['text'] = 'DS access error'
+    else:
+        # Токен закончился, надо обновить (снова залогиниться)
+        output_dict_['text'] = 'Login required'
+
+    return json.dumps(output_dict_, ensure_ascii=False, indent=2)
+
+
+@auth_decor
+def all_abon_get(auth_ok=False, payload=None, **kwargs):
     ''' Метод для выдачи всей базы абонентов
     Keyword Arguments:
-        req_data [str] -- Параметр req_data в GET-запросе
         auth_ok [bool] -- Запрос аутентифицирован
         payload [dict] -- Распакованная из JWT полезная нагрузка
             (словарь/json)

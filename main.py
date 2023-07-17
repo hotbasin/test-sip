@@ -31,11 +31,17 @@ def login_post() -> dict:
     return api_.login_post(request.json)
 
 
+@post('/srv1/admin/adduser')
+def adduser_post() -> dict:
+    ''' Ресурс для добавления нового пользователя в базу
+    '''
+    return api_.adduser_post(**request.json)
+
+
 @get('/srv1/abon/all')
 def all_abon_get() -> dict:
     ''' Ресурс выдачи всей базы абонентов
     '''
-    # req_data_ = request.query.req_data
     return api_.all_abon_get(req_data=request.query.req_data)
 
 
@@ -47,6 +53,7 @@ def call_sample_post():
 
 
 ''' =====----- MAIN -----===== '''
+
 if __name__ == '__main__':
     run(host='localhost', port=8080, debug=True)
 

@@ -48,6 +48,26 @@ def test_login(credentials: dict) -> str:
         return f'FAIL: {res_dict["text"]}'
 
 
+def test_adduser(adduserdata: dict) -> str:
+    ''' Тест добавления нового пользователя в базу
+    Arguments:
+        adduserdata [dict] -- Данные нового пользователя с ключами
+            'name', 'login', 'password', 'comment'
+    Returns:
+        [str] -- Неотформатированный многострочник с полученным от
+            сервера json-ответом
+    '''
+    with open(TOKEN_FILE, 'r', encoding='utf-8') as j_:
+        token_dict_ = json.load(j_)
+    acc_token_ = token_dict_['acc_token']
+    req_jwt_ = jwt.encode(adduserdata, JWT_KEY, algorithm='HS256',
+                          headers={'acc_token': acc_token_}
+                         )
+    r_ = requests.post('http://localhost:8080/srv1/admin/adduser',
+                       json={'req_data': req_jwt_})
+    return r_.text
+
+
 def test_abon() -> str:
     ''' Тест выдачи всей базы абонентов.
     Отправляет в GET-запросе на сервер закодированный JSON Web Token.
@@ -71,6 +91,7 @@ def test_abon() -> str:
 
 
 ''' =====----- MAIN -----===== '''
+
 if __name__ == '__main__':
     ''' Раскомментировать для проверки логина (POST) '''
     creds = {'login': 'user1', 'password': 'qwerty1'}
@@ -78,5 +99,10 @@ if __name__ == '__main__':
     
     ''' Раскомментировать для проверки выдачи абонентской базы (GET) '''
     # print(test_abon())
+    
+    ''' Раскомментировать для проверки добавления пользователя в базу '''
+    # new_user = {'name': 'Johan', 'login': 'user4',
+                # 'password': 'qwerty4', 'comment': ''}
+    # print(test_adduser(new_user))
 
 #####=====----- THE END -----=====#########################################
