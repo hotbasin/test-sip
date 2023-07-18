@@ -2,6 +2,7 @@ __pycache__/
 VENV*/
 venv*/
 jwt/
+swagger_ui/
 *.ipynb
 .ipynb_checkpoints/
 test.py
