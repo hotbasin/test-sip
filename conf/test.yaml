@@ -12,9 +12,15 @@ tags:
     description: default tag
 
 paths:
+  /srv1/auth/login:
+    post:
+      summary: Login Test
+  /srv1/admin/adduser:
+    post:
+      summary: Adduser Test
   /srv1/abon/all:
     get:
-      summary: output hello world.
+      summary: Abonents Test
       produces:
         - application/text
       responses:
@@ -24,3 +30,6 @@ paths:
             example: "Bulk page!!!"
       tags:
         - default
+  /srv1/call/sample:
+    post:
+      summary: Call Test

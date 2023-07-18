@@ -98,7 +98,7 @@ if __name__ == '__main__':
     print(test_login(creds))
     
     ''' Раскомментировать для проверки выдачи абонентской базы (GET) '''
-    # print(test_abon())
+    print(test_abon())
     
     ''' Раскомментировать для проверки добавления пользователя в базу '''
     # new_user = {'name': 'Johan', 'login': 'user4',
