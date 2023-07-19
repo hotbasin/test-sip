@@ -80,7 +80,8 @@ access-токена. Однако сейчас при просроченном a
 
 [**`swagger.py`**](swagger.py)&nbsp;&mdash; Такой же Web-сервер, с тем же
 функционалом, что и [**`main.py`**](main.py), но дополнительно добавлена
-реализация поддержки **Swagger**.
+реализация поддержки **Swagger** по URL:
+[http://localhost:8080/api/doc](http://localhost:8080/api/doc)
 
 [**`api_srv.py`**](api_srv.py)&nbsp;&mdash; модуль с методами API, необходимыми
 для работы сервера.

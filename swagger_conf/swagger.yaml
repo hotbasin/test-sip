@@ -14,22 +14,26 @@ tags:
 paths:
   /srv1/auth/login:
     post:
-      summary: Login Test
+      summary: User login
   /srv1/admin/adduser:
     post:
-      summary: Adduser Test
+      summary: Add new user
   /srv1/abon/all:
     get:
-      summary: Abonents Test
+      summary: Show all abonents in database
+      parameters:
+        - name: req_data
+          required: True
+          description: JSON Web Token
       produces:
         - application/text
       responses:
         '200':
           description: OK
           schema:
-            example: "Bulk page!!!"
+            example: "{status: 'success', \ntext: 'Authorized request',\nall_abon:{...}\n}"
       tags:
         - default
   /srv1/call/sample:
     post:
-      summary: Call Test
+      summary: Demo Call
