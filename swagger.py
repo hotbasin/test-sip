@@ -2,10 +2,10 @@
 
 import os
 cur_dir = os.path.dirname(os.path.abspath(__file__))
-config_path = os.path.join(cur_dir, 'conf/test.yaml')
+config_path = os.path.join(cur_dir, 'swagger_conf/swagger.yaml')
 
 # from bottle import HTTPError, get, post, request, run
-from bottle import Bottle, HTTPError, post, request, run
+from bottle import Bottle, HTTPError, request, run
 
 import api_srv as api_
 
