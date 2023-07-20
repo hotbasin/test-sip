@@ -15,9 +15,31 @@ paths:
   /srv1/auth/login:
     post:
       summary: User login
+      parameters:
+        - name: login
+          in: json
+          required: True
+          description: User login
+        - name: password
+          in: json
+          required: True
+          description: User password
+      produces:
+        - application/text
+      responses:
+        '200':
+          description: OK
+          schema:
+            example: |
+              {
+              status: "success",
+              text: "User user_login: logged in"
+              }
+
   /srv1/admin/adduser:
     post:
       summary: Add new user
+
   /srv1/abon/all:
     get:
       summary: Show all abonents in database
@@ -31,9 +53,15 @@ paths:
         '200':
           description: OK
           schema:
-            example: "{status: 'success', \ntext: 'Authorized request',\nall_abon:{...}\n}"
+            example: |
+              {
+              status: 'success',
+              text: 'Authorized request',
+              all_abon: {...}
+              }
       tags:
         - default
+
   /srv1/call/sample:
     post:
       summary: Demo Call
