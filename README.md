@@ -78,7 +78,7 @@ access-токена. Однако сейчас при просроченном a
 ресурсов, необходимый функционал которых вынесен в отдельный модуль
 **`api_srv.py`**.
 
-[**`main-swagger.py`**](main-swagger.py)&nbsp;&mdash; Такой же Web-сервер, с тем
+[**`main_swagger.py`**](main_swagger.py)&nbsp;&mdash; Такой же Web-сервер, с тем
 же функционалом, что и [**`main.py`**](main.py), но дополнительно добавлена
 реализация поддержки **Swagger** по URL:
 [http://localhost:8080/api/doc](http://localhost:8080/api/doc)
@@ -167,7 +167,7 @@ HTTP-методами GET или POST, с аутентификацией или 
 
     python main.py
     # Или:
-    python main-swagger.py
+    python main_swagger.py
     # Выход по Ctrl+C в обоих случаях
 
     # Выход из виртуального окружения

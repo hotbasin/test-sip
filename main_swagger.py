@@ -4,8 +4,8 @@ import os
 cur_dir = os.path.dirname(os.path.abspath(__file__))
 config_path = os.path.join(cur_dir, 'swagger_conf/swagger.yaml')
 
-# from bottle import HTTPError, get, post, request, run
 from bottle import Bottle, HTTPError, request, run
+from swagger_ui import bottle_api_doc
 
 import api_srv as api_
 
@@ -61,18 +61,7 @@ def call_sample_post():
 ''' =====----- MAIN -----===== '''
 
 if __name__ == '__main__':
-    # import os
-    # cur_dir = os.path.dirname(os.path.abspath(__file__))
-    # config_path = os.path.join(cur_dir, 'conf/test.yaml')
-
-    from swagger_ui import api_doc, bottle_api_doc
-    # from bottle import Bottle
-    # app = Bottle()
-    # api_doc(app, config_path=config_path, url_prefix='/api/doc', title='API doc')
-    bottle_api_doc(app, config_path=config_path, url_prefix='/api/doc', title='API doc')
+    bottle_api_doc(app, config_path=config_path, url_prefix='/api/doc', title='Swagger docs')
     run(app, host='localhost', port=8080, debug=True)
-
-
-    # run(host='localhost', port=8080, debug=True)
 
 #####=====----- THE END -----=====#########################################
