@@ -39,6 +39,21 @@ paths:
   /srv1/admin/adduser:
     post:
       summary: Add new user
+      parameters:
+        - name: req_data
+          required: True
+          description: JSON Web Token
+      produces:
+        - application/text
+      responses:
+        '200':
+          description: OK
+          schema:
+            example: |
+              {
+              status: "success",
+              text: "User user_login: added"
+              }
 
   /srv1/abon/all:
     get:
