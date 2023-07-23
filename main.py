@@ -55,6 +55,6 @@ def call_sample_post():
 ''' =====----- MAIN -----===== '''
 
 if __name__ == '__main__':
-    run(host='localhost', port=8080, debug=True)
+    run(host='0.0.0.0', port=8080, debug=True)
 
 #####=====----- THE END -----=====#########################################
