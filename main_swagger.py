@@ -62,6 +62,6 @@ def call_sample_post():
 
 if __name__ == '__main__':
     bottle_api_doc(app, config_path=config_path, url_prefix='/api/doc', title='Swagger docs')
-    run(app, host='localhost', port=8080, debug=True)
+    run(app, host='0.0.0.0', port=8080, debug=True)
 
 #####=====----- THE END -----=====#########################################
