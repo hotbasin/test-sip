@@ -4,6 +4,8 @@
 
 Потом распишу это горе
 
+----
+
 ## python3-sipsimple ##
 
 [https://github.com/AGProjects/python3-sipsimple](https://github.com/AGProjects/python3-sipsimple)
@@ -14,5 +16,23 @@
 не может поставить.
 
 Щас попробуем тупо погонять с репы скрипты от sipsimple-examples.
+Или взять оттуда некоторые модули и собрать свой паззл.
 
 [https://github.com/saghul/sipsimple-examples](https://github.com/saghul/sipsimple-examples)
+
+----
+
+## P2P-SIP ##
+
+[https://github.com/theintencity/p2p-sip](https://github.com/theintencity/p2p-sip)
+
+Древнючий проект. Наверняка бесполезен. Мигрировал в следующий проект, не такой
+старый.
+
+----
+
+## RTC Lite ##
+
+[https://github.com/theintencity/rtclite](https://github.com/theintencity/rtclite)
+
+----
