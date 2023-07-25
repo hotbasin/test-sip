@@ -15,8 +15,11 @@
 Через apt-get install python3-sipsimple не хочет, много зависимостей, которые он
 не может поставить.
 
-Щас попробуем тупо погонять с репы скрипты от sipsimple-examples.
-Или взять оттуда некоторые модули и собрать свой паззл.
+Далее можно:
+
+1. Можно попробовать собрать вручную.
+2. Тупо погонять с репы скрипты от sipsimple-examples. Или взять оттуда
+некоторые модули и собрать свой паззл.
 
 [https://github.com/saghul/sipsimple-examples](https://github.com/saghul/sipsimple-examples)
 
