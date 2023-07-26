@@ -1,10 +1,11 @@
 #!/usr/bin/bash
 
 echousage() {
-    echo "Usage: ${0} \$1 \$2 \$3"
+    echo "Usage: ${0} \$1 \$2 \$3 \$4"
     echo '    $1 - SIP-server IP/FQDN'
-    echo '    $1 - client login'
-    echo '    $1 - client passwd'
+    echo '    $2 - SIP-client login'
+    echo '    $3 - SIP-client password'
+    echo '    $4 - Telephone number'
     echo ''
     exit 1
 }
@@ -15,6 +16,11 @@ if [ "${1}" ] ; then
         LOGIN="${2}"
         if [ "${3}" ] ; then
             PASSWORD="${3}"
+            if [ "${4}" ] ; then
+                PHONE="${4}"
+            else
+                echousage
+            fi
         else
             echousage
         fi
@@ -25,7 +31,6 @@ else
     echousage
 fi
 
-PHONE='89021685218'
 SOUND='/home/ubuntu/SIPdev/sirena.wav'
 CONTROL='/usr/bin/linphonecsh'
 
