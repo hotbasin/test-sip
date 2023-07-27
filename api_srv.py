@@ -211,7 +211,7 @@ def call_sample_post(auth_ok=False, payload=None, **kwargs) -> dict:
                     'text': 'Unknown request'
                    }
     if auth_ok:
-        cmd_ = 'bash /home/ubuntu/DEVEL/call.sh'
+        cmd_ = 'bash /home/ubuntu/SIPdev/call.sh'
         # cmd_ = 'bash /home/stalk/DEVEL/call.sh'
         gw_ip_ = payload['gw_addr']
         gw_id_ = payload['gw_login']
