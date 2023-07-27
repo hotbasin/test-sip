@@ -138,6 +138,7 @@ HTTP-методами GET или POST, с аутентификацией или 
     sudo apt-get install python3-pip
     sudo apt-get install python3-venv
     sudo apt-get install sqlite3
+    sudo apt-get install linphone-cli
     ```
 
 2. Для работы **SQLite3** под Windows всё необходимое для работы уже есть в
