@@ -203,9 +203,25 @@ def all_abon_get(auth_ok=False, payload=None, **kwargs):
 
 
 @auth_decor
-def call_sample_post(req_data=None, auth_ok=False, payload=None, **kwargs):
+def call_sample_post(auth_ok=False, payload=None, **kwargs) -> dict:
     ''' Метод для тестового звонка
     '''
-    pass
+    import os
+    output_dict_ = {'status': 'fail',
+                    'text': 'Unknown request'
+                   }
+    if auth_ok:
+        cmd_ = '/home/ubuntu/DEVEL/call.sh'
+        gw_ip_ = payload['gw_addr']
+        gw_id_ = payload['gw_login']
+        gw_pw_ = payload['gw_password']
+        tel_num_ = payload['phone_num']
+        os.system(f'{cmd_} {gw_ip_} {gw_id_} {gw_pw_} {tel_num_} 2>&1 1>/dev/null')
+        output_dict_['status'] = 'success'
+        output_dict_['text'] = 'OK'
+    else:
+        # Токен закончился, надо обновить (снова залогиниться)
+        output_dict_['text'] = 'Login required'
+    return json.dumps(output_dict_, ensure_ascii=False, indent=2)
 
 #####=====----- THE END -----=====#########################################
