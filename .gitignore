@@ -6,4 +6,5 @@ swagger_ui/
 *.ipynb
 .ipynb_checkpoints/
 test.py
+client_confidentials.py
 sqlite/*.sqlite3
