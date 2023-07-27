@@ -90,6 +90,24 @@ def test_abon() -> str:
     return r.text
 
 
+def test_call(phone_number: str) -> str:
+    import client_confidentials as cc_
+    call_attribs_ = {}
+    with open(TOKEN_FILE, 'r', encoding='utf-8') as j_:
+        token_dict_ = json.load(j_)
+    acc_token_ = token_dict_['acc_token']
+    call_attribs_['gw_addr'] = cc_.SIP_GW_IP
+    call_attribs_['gw_login'] = cc_.SIP_GW_ID
+    call_attribs_['gw_password'] = cc_.SIP_GW_PW
+    call_attribs_['phone_num'] = phone_number
+    req_jwt_ = jwt.encode(call_attribs_, JWT_KEY, algorithm='HS256',
+                          headers={'acc_token': acc_token_}
+                         )
+    r_ = requests.post('http://localhost:8080/srv1/call/sample',
+                       json={'req_data': req_jwt_})
+    return r_.text
+
+
 ''' =====----- MAIN -----===== '''
 
 if __name__ == '__main__':
@@ -107,5 +125,10 @@ if __name__ == '__main__':
     '''
     # new_user = {'name': 'Johan', 'login': 'user4', 'password': 'qwerty4', 'comment': ''}
     # print(test_adduser(new_user))
+    
+    ''' Раскомментировать для проверки тестового звонка
+    '''
+    phone_number = '89021685218'
+    print(test_call(phone_number))
 
 #####=====----- THE END -----=====#########################################
