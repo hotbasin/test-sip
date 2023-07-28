@@ -79,4 +79,32 @@ paths:
 
   /srv1/call/sample:
     post:
-      summary: Demo Call
+      summary: Test Call
+      parameters:
+        - name: gw_addr
+          in: json
+          required: True
+          description: SIP-gateway IP or FQDN
+        - name: gw_login
+          in: json
+          required: True
+          description: User ID for SIP-gateway
+        - name: gw_password
+          in: json
+          required: True
+          description: User password for SIP-gateway
+        - name: phone_num
+          in: json
+          required: True
+          description: Phone number to call test
+      produces:
+        - application/text
+      responses:
+        '200':
+          description: OK
+          schema:
+            example: |
+              {
+              status: "success",
+              text: "OK"
+              }
