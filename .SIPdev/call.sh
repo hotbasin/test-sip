@@ -32,33 +32,33 @@ else
 fi
 
 SOUND='/home/ubuntu/SIPdev/sirena.wav'
-CONTROL='/usr/bin/linphonecsh'
+CMD='/usr/bin/linphonecsh'
 
-${CONTROL} init
-echo 'PHONE initialized'
+${CMD} init
+##### echo 'PHONE initialized'
 sleep 1
 
-${CONTROL} generic "soundcard use files"
-echo 'PHONE use WAV'
+${CMD} generic "soundcard use files"
+##### echo 'PHONE use WAV'
 sleep 1
 
-${CONTROL} register --username ${LOGIN} --host ${SERVER} --password ${PASSWORD}
-echo 'PHONE registered'
+${CMD} register --username ${LOGIN} --host ${SERVER} --password ${PASSWORD}
+##### echo 'PHONE registered'
 sleep 1
 
-${CONTROL} dial sip:${PHONE}@${SERVER}
-echo 'PHONE dialing'
+${CMD} dial sip:${PHONE}@${SERVER}
+##### echo 'PHONE dialing'
 sleep 15
 
-${CONTROL} generic "play ${SOUND}"
-echo 'PHONE playing'
+${CMD} generic "play ${SOUND}"
+##### echo 'PHONE playing'
 sleep 10
 
-${CONTROL} generic "terminate"
-echo 'PHONE hang off'
+${CMD} generic "terminate"
+##### echo 'PHONE hang off'
 sleep 1
 
-${CONTROL} exit
-echo 'PHONE exit'
+${CMD} exit
+##### echo 'PHONE exit'
 
 ###########################################################################
