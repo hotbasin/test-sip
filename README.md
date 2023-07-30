@@ -207,7 +207,8 @@ HTTP-методами GET или POST, с аутентификацией или 
 
 Тем не менее, в дальнейшем могут рассматриваться некоторые кандидаты на удачную
 отработку: [**pyVoIP**](https://pyvoip.readthedocs.io/en/v1.6.5/#),
-[**P2P-SIP**](https://github.com/theintencity/p2p-sip).
+[**P2P-SIP**](https://github.com/theintencity/p2p-sip), который мигрировал в
+более новый проект [**RTC Lite**](https://github.com/theintencity/rtclite).
 
 Наиболее перспективным на первый взгляд кажется
 [**Most Voip Library**](https://most-voip.readthedocs.io/en/latest/index.html),
