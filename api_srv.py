@@ -19,7 +19,8 @@ ENGINE = sa.create_engine(DB_PATH)
 LOGIN_INTERVAL = 600.0
 # Ключ для создания JSON Web Token
 JWT_KEY = 'secretstring'
-
+# Путь к bash-скрипту для работы с Linphone
+SHELL_SCRIPT = '/home/ubuntu/SIPdev/call.sh'
 
 ''' =====----- Classes -----===== '''
 
@@ -211,13 +212,12 @@ def call_sample_post(auth_ok=False, payload=None, **kwargs) -> dict:
                     'text': 'Unknown request'
                    }
     if auth_ok:
-        cmd_ = 'bash /home/ubuntu/SIPdev/call.sh'
-        # cmd_ = 'bash /home/stalk/DEVEL/call.sh'
+        sh_scr_ = SHELL_SCRIPT
         gw_ip_ = payload['gw_addr']
         gw_id_ = payload['gw_login']
         gw_pw_ = payload['gw_password']
         tel_num_ = payload['phone_num']
-        os.system(f'{cmd_} {gw_ip_} {gw_id_} {gw_pw_} {tel_num_} 2>&1 1>/dev/null')
+        os.system(f'bash {sh_scr_} {gw_ip_} {gw_id_} {gw_pw_} {tel_num_} 2>&1 1>/dev/null')
         output_dict_['status'] = 'success'
         output_dict_['text'] = 'OK'
     else:
