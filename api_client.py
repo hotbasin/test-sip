@@ -91,6 +91,16 @@ def test_abon() -> str:
 
 
 def test_call(phone_number: str) -> str:
+    ''' Тестовый звонок.
+    Отправляет в POST-запросе на сервер закодированный JSON Web Token.
+    В 'header' добавляет полученный при логине access-токен.
+    В 'payload' вкладывает json/словарь с параметрами SIP-шлюза
+    gw-addr/gw_login/gw_password, импортируемыми из файла
+    client_confidentials.py, и заданный phone_num.
+    Returns:
+        [str] -- Неотформатированный многострочник с полученным от
+            сервера json-ответом
+    '''
     import client_confidentials as cc_
     call_attribs_ = {}
     with open(TOKEN_FILE, 'r', encoding='utf-8') as j_:
