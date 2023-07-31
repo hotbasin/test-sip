@@ -131,7 +131,7 @@ def adduser_post(auth_ok=False, payload=None, **kwargs) -> dict:
         payload [dict] -- Распакованная из JWT полезная нагрузка
             (словарь/json)
     Returns:
-        [dict] -- Словарь/json с ключами status/...
+        [dict] -- Словарь/json с ключами status/text
     '''
     output_dict_ = {'status': 'fail',
                     'text': 'Unknown request'
@@ -206,6 +206,12 @@ def all_abon_get(auth_ok=False, payload=None, **kwargs):
 @auth_decor
 def call_sample_post(auth_ok=False, payload=None, **kwargs) -> dict:
     ''' Метод для тестового звонка
+    Keyword Arguments:
+        auth_ok [bool] -- Запрос аутентифицирован
+        payload [dict] -- Распакованная из JWT полезная нагрузка
+            (словарь/json)
+    Returns:
+        [dict] -- Словарь/json с ключами status/text
     '''
     import os
     output_dict_ = {'status': 'fail',
