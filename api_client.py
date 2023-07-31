@@ -13,6 +13,8 @@ import jwt
 TOKEN_FILE = 'acc-token.json'
 # Ключ для создания JSON Web Token
 JWT_KEY = 'secretstring'
+# IP-адрес/FQDN и порт тестируемого сервера
+SRV_ADDR = 'localhost:8080'
 
 
 ''' =====----- Functions -----===== '''
@@ -31,7 +33,7 @@ def test_login(credentials: dict) -> str:
             text/acc_token/expired в случае успеха
             или со значением 'text' при ошибке
     '''
-    r_ = requests.post('http://localhost:8080/srv1/auth/login',
+    r_ = requests.post(f'http://{SRV_ADDR}/srv1/auth/login',
                        json=credentials)
     res_dict = r_.json()
     if res_dict['status'] == 'success':
@@ -63,7 +65,7 @@ def test_adduser(adduserdata: dict) -> str:
     req_jwt_ = jwt.encode(adduserdata, JWT_KEY, algorithm='HS256',
                           headers={'acc_token': acc_token_}
                          )
-    r_ = requests.post('http://localhost:8080/srv1/admin/adduser',
+    r_ = requests.post(f'http://{SRV_ADDR}/srv1/admin/adduser',
                        json={'req_data': req_jwt_})
     return r_.text
 
@@ -84,7 +86,7 @@ def test_abon() -> str:
     req_jwt_ = jwt.encode(payload_, JWT_KEY, algorithm='HS256',
                           headers={'acc_token': acc_token_}
                          )
-    r = requests.get('http://localhost:8080/srv1/abon/all',
+    r = requests.get(f'http://{SRV_ADDR}/srv1/abon/all',
                      params={'req_data': req_jwt_}
                     )
     return r.text
@@ -113,7 +115,7 @@ def test_call(phone_number: str) -> str:
     req_jwt_ = jwt.encode(call_attribs_, JWT_KEY, algorithm='HS256',
                           headers={'acc_token': acc_token_}
                          )
-    r_ = requests.post('http://localhost:8080/srv1/call/sample',
+    r_ = requests.post(f'http://{SRV_ADDR}/srv1/call/sample',
                        json={'req_data': req_jwt_})
     return r_.text
 
