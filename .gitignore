@@ -8,3 +8,6 @@ swagger_ui/
 test.py
 client_confidentials.py
 sqlite/*.sqlite3
+# sqlite/sqlite3.exe
+# sqlite/sqlite3.dll
+# sqlite/sqlite3.def
