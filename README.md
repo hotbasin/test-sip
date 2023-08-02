@@ -213,13 +213,19 @@ HTTP-методами GET или POST, с аутентификацией или 
 [**P2P-SIP**](https://github.com/theintencity/p2p-sip), который мигрировал в
 более новый проект [**RTC Lite**](https://github.com/theintencity/rtclite).
 
-Наиболее перспективным на первый взгляд кажется
+Перспективным на первый взгляд кажется
 [**Most Voip Library**](https://most-voip.readthedocs.io/en/latest/index.html),
 предварительно (и рекурсивно) требующая сборки и установки не-Python пакетов
 [**PJSIP**](https://docs.pjsip.org/en/latest/index.html)
 ([**PJSIP на GIT**](https://github.com/pjsip/pjproject)),
 [**PJSUA2**](https://docs.pjsip.org/en/latest/pjsua2/intro.html). Хотя он
 предназначен в основном для работы с Asterisk, но мало ли.
+
+Если в будущем предполагается расширение функционала звонков, то можно
+исследовать возможности [**Softphone**](https://github.com/DiscordPhone/softphone)
+от **Discord**. Требует предварительной установки
+[**PJSIP/pjproject**](https://github.com/pjsip/pjproject),
+[**PJSUA2**](https://www.pjsip.org/docs/book-latest/html/index.html).
 
 [:arrow_up: Содержание](#содержание)
 
