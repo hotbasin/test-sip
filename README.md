@@ -225,7 +225,9 @@ HTTP-методами GET или POST, с аутентификацией или 
 исследовать возможности [**Softphone**](https://github.com/DiscordPhone/softphone)
 от **Discord**. Требует предварительной установки
 [**PJSIP/pjproject**](https://github.com/pjsip/pjproject),
-[**PJSUA2**](https://www.pjsip.org/docs/book-latest/html/index.html).
+[**PJSUA2**](https://www.pjsip.org/docs/book-latest/html/index.html). Кроме того
+потребуется установка в систему (Ubuntu) библиотеки `libportaudio2` и некоторое
+&laquo;допиливание&raquo; кода в модуле `sounddevice.py`.
 
 [:arrow_up: Содержание](#содержание)
 
