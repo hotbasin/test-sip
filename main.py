@@ -26,9 +26,16 @@ def server_root() -> str:
 
 @post('/srv1/auth/login')
 def login_post() -> dict:
-    ''' Ресурс аутентификации на сервере
+    ''' Ресурс аутентификации на сервере через метод POST
     '''
-    return api_.login_post(request.json)
+    return api_.login_getpost(request.json)
+
+
+@post('/srv1/auth/login')
+def login_get() -> dict:
+    ''' Ресурс аутентификации на сервере через метод GET
+    '''
+    return api_.login_getpost(dict(request.query))
 
 
 @post('/srv1/admin/adduser')
