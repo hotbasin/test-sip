@@ -32,9 +32,16 @@ def server_root() -> str:
 
 @app.route('/srv1/auth/login', method='POST')
 def login_post() -> dict:
-    ''' Ресурс аутентификации на сервере
+    ''' Ресурс аутентификации на сервере через метод POST
     '''
-    return api_.login_post(request.json)
+    return api_.login_getpost(request.json)
+
+
+@app.route('/srv1/auth/login', method='GET')
+def login_get() -> dict:
+    ''' Ресурс аутентификации на сервере через метод GET
+    '''
+    return api_.login_getpost(dict(request.query))
 
 
 @app.route('/srv1/admin/adduser', method='POST')

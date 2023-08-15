@@ -83,7 +83,7 @@ def auth_decor(fn_to_be_decor):
 
 ''' =====----- API Methods -----===== '''
 
-def login_post(credentials: dict) -> dict:
+def login_getpost(credentials: dict) -> dict:
     ''' Метод для ресурса аутентификации на сервере. В случае логина
     пользователя записывает для него в таблицу 'Users' выданный токен
     (token) и дату окончания его действия (expired).
