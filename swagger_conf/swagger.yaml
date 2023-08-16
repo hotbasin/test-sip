@@ -1,4 +1,7 @@
 swagger: '2.0'
+info:
+  title: Swagger for Bottle
+  description: Sample config for swagger in a Bottle
 host: '127.0.0.1:8080'
 schemes:
   - http
@@ -10,31 +13,45 @@ info:
 tags:
   - name: default
     description: default tag
+  - name: getmethods
+    description: tag for GET methods
+  - name: postmethods
+    description: tag for POST methods
 
 paths:
   /srv1/auth/login:
-    post:
-      summary: User login
+    get:
+      tags:
+        - getmethods
+      summary: User login to server
+      description: ''
       parameters:
         - name: login
-          in: json
-          required: True
-          description: User login
+          in: query
+          description: User login name
+          required: true
+          schema:
+            type: string
         - name: password
-          in: json
-          required: True
+          in: query
           description: User password
-      produces:
-        - application/text
+          required: true
+          schema:
+            type: string
       responses:
         '200':
-          description: OK
-          schema:
-            example: |
-              {
-              status: "success",
-              text: "User user_login: logged in"
-              }
+          description: User login result
+          content:
+            application/json:
+              schema:
+                type: string
+                example: |
+                  {
+                    "status": "success",
+                    "text": "User user1: logged in",
+                    "acc_token": "4fe75f23-2bf8-482f-94d8-3e51663c410a",
+                    "expired": 1692021237.7405028
+                  }
 
   /srv1/admin/adduser:
     post:
